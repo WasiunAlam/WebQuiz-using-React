@@ -1,12 +1,45 @@
 import React from 'react'
-import Data from './data.jsx'
+import axios from 'axios'
 import './App.css'
 
 function App() {
 
+  const [Data, setData] = React.useState([])
+
+  // Function to shuffle options so that the correct answer is not always in the same position
+  function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+  }
+
+
+  React.useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://the-trivia-api.com/v2/questions');
+
+      // Transform the API response to match the required format
+      const formatResponse = response.data.map(item => (
+        {
+          question: item.question.text,
+          options: shuffle([item.correctAnswer, ...item.incorrectAnswers]),
+          answer: item.correctAnswer
+        }
+      ))
+
+      setData(formatResponse);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  fetchData();
+}, []);
+
+
   const [ SelectedAnswer , setSelectedAnswer ] = React.useState({})
   const [ score , setScore ] = React.useState(0)
 
+  // Submit button function
   function HandleSubmit() {
     let count =0
 
@@ -20,10 +53,12 @@ function App() {
   
   return (
     <>
+
     <div className="App">
       <h1>Quiz App</h1>
 
-      {Data.map((item,index) => (
+      {
+      Data.map((item,index) => (
         <div key={index} className="question-block">
           <h2>{item.question}</h2>
           <div className="options">
@@ -38,7 +73,8 @@ function App() {
           </div>
         </div>
       
-      ))}
+      ))
+      }
 
       <button className="submit-button" onClick={HandleSubmit}>Submit</button>
       <h2>Score :{score}</h2>
