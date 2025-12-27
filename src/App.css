@@ -1,0 +1,95 @@
+/* App-level and component styles for the quiz */
+.App{
+	max-width:900px;
+	margin:32px auto;
+	padding:24px;
+	background: rgba(255,255,255,0.85);
+	border-radius:12px;
+	box-shadow: 0 10px 30px rgba(2,6,23,0.08);
+}
+
+/* Main title */
+.App > h1{
+	margin:0 0 18px;
+	text-align:center;
+	font-size:1.75rem;
+	color:var(--text);
+	letter-spacing:-0.01em;
+}
+
+/* Question block */
+.question-block{
+	margin-bottom:16px;
+	padding:14px;
+	border-radius:10px;
+	background: linear-gradient(180deg,#ffffff,#fbfdff);
+	border:1px solid rgba(15,23,42,0.04);
+}
+.question-block h2{
+	font-size:1rem;
+	margin:0 0 8px;
+	color:var(--text);
+}
+
+/* Options list */
+.options{
+	display:flex;
+	flex-direction:column;
+	gap:8px;
+}
+.option{
+	display:flex;
+	align-items:center;
+	padding:8px 10px;
+	border-radius:8px;
+	cursor:pointer;
+	transition:background .12s, transform .08s;
+	border:1px solid transparent;
+}
+.option:hover{
+	background: rgba(99,102,241,0.06);
+	transform:translateY(-1px);
+}
+
+/* Radio inputs (use modern accent-color for colored radios) */
+.option input[type="radio"]{
+	margin:0 10px 0 0;
+	width:18px;
+	height:18px;
+	vertical-align:middle;
+	accent-color:var(--accent);
+	cursor:pointer;
+}
+
+/* Submit button */
+.submit-button{
+	display:block;
+	margin:18px auto 8px;
+	padding:10px 18px;
+	background: linear-gradient(90deg,var(--accent), #7c3aed);
+	color:#fff;
+	border:none;
+	border-radius:10px;
+	font-weight:600;
+	cursor:pointer;
+	box-shadow: 0 8px 22px rgba(99,102,241,0.16);
+	transition:transform .12s, box-shadow .12s, opacity .12s;
+}
+.submit-button:hover{ transform:translateY(-2px); }
+.submit-button:active{ transform:translateY(0); }
+
+/* Score display (direct child h2 of .App) */
+.App > h2{
+	text-align:center;
+	margin-top:12px;
+	color:var(--muted);
+	font-weight:600;
+}
+
+/* Responsive tweaks */
+@media (max-width:600px){
+	.App{ margin:18px 12px; padding:16px; }
+	.question-block{ padding:12px; }
+	.option{ padding:8px; }
+	.App > h1{ font-size:1.4rem; }
+}
