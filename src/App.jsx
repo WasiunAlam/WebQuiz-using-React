@@ -37,18 +37,32 @@ function App() {
 
 
   const [ SelectedAnswer , setSelectedAnswer ] = React.useState({})
-  const [ score , setScore ] = React.useState(0)
+  const [ score , setScore ] = React.useState({
+    correct:0,
+    incorrect:0,
+    skipped:0
+  })
 
   // Submit button function
   function HandleSubmit() {
-    let count =0
+    let score={
+      correct:0,
+      incorrect:0,
+      skipped:0
+    }
 
     Data.forEach((item,index) => {
       if(SelectedAnswer[index] === item.answer) {
-        count +=1
+        score.correct +=1
+      }
+      else if (SelectedAnswer[index] === undefined) {
+        score.skipped +=1
+      }
+      else{
+        score.incorrect +=1;
       }
     })
-    setScore(count)
+    setScore(score)
   }
 
   function ReloadPage() {
@@ -81,7 +95,11 @@ function App() {
       }
 
       <button className="submit-button" onClick={HandleSubmit}>Submit</button>
-      <h2>Score :{score}</h2>
+      <h2>
+        <span style={{color : 'green'}}>correct: {score.correct} &nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span style={{color :'red'}}>incorrect: {score.incorrect} &nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span>skipped: {score.skipped}</span>
+      </h2>
 
       <button className='reload-button' onClick={ReloadPage}>Refresh Question</button>
       </div>
