@@ -50,6 +50,10 @@ function App() {
     })
     setScore(count)
   }
+
+  function ReloadPage() {
+    window.location.reload();
+  }
   
   return (
     <>
@@ -79,6 +83,7 @@ function App() {
       <button className="submit-button" onClick={HandleSubmit}>Submit</button>
       <h2>Score :{score}</h2>
 
+      <button className='reload-button' onClick={ReloadPage}>Refresh Question</button>
       </div>
     </>
   )
